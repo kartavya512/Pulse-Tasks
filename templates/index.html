@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block body %}
+    
+      <div class="container my-3">
+      <form action="/", method='POST'>
+        <div class="mb-3">
+          <label for="Task" class="form-label">Task</label>
+          <input type="text" class="form-control" name="task" id="task" >
+          
+        <div class="mb-4">
+          
+    
+          <label for="desc" class="form-label">Description</label>
+          <input type="text" class="form-control" name="desc" id="desc">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="container my-4">
+        <h2>My Tasks</h2>
+      
+        <table class="table">
+          
+            {% if alltasks|length==0 %} 
+            <div class="alert alert-dark" role="alert">
+             No Task is left. Please add task
+            </div>
+            {% else %} 
+            <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Sno.</th>
+                <th scope="col">Task</th>
+                <th scope="col">Description</th>
+                <th scope="col">Time</th>
+                
+              </tr>
+            </thead>
+            {% endif %}
+          
+            <tbody>
+              {% for t in alltasks %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{t.task}}</td>
+                <td>{{t.desc}}</td>
+                <td>{{t.date}}</td>
+                <td>
+                  <a href="/update/{{t.sno}}"type="button" class="btn btn-outline-dark btn-sm">Update</a> 
+                  <a href="/delete/{{t.sno}}"type="button" class="btn btn-outline-dark btn-sm">Delete</a>
+                </td>
+              </tr>
+               {% endfor %}
+        
+
+            
+             
+            </tbody>
+          </table>
+    </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+      {% endblock body %}
